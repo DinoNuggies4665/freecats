@@ -6,14 +6,12 @@
 #include <vector>
 #include <tuple>
 
-class AnimatedGIF
-{
+class AnimatedGIF {
     public:
         AnimatedGIF(const char* filename);
 
         const sf::Vector2i& getSize(void);
         void update(sf::Sprite& sprite);
-
     private:
         sf::Vector2i size;
         sf::Clock clock;
