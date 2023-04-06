@@ -14,7 +14,6 @@ std::vector<int> xv;
 std::vector<int> yv;
 const int SCREEN_WIDTH = sf::VideoMode().getDesktopMode().width;
 const int SCREEN_HEIGHT = sf::VideoMode().getDesktopMode().height;
-const int WINDOW_SPEED = 4;
 bool isRunning = true;
 
 // Cat shit
@@ -26,9 +25,10 @@ int main() {
 	std::vector<int> _gifID;
 	for (int i = 0; i < 13; i++)
 		_gifID.push_back(i);
+	srand(time(NULL));
 	std::random_shuffle(_gifID.begin(), _gifID.end());
 
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 5; i++) {
 		// Create path to selected gif
 		std::stringstream _ss;
 		_ss << "data/" << _gifID[i] << ".gif";
@@ -45,8 +45,9 @@ int main() {
 		int _y = rand() % SCREEN_HEIGHT;
 		int _xv = rand() % 2 - 1; if (_xv == 0) { _xv++; }
 		int _yv = rand() % 2 - 1; if (_yv == 0) { _yv++; }
-		_xv *= WINDOW_SPEED;
-		_yv *= WINDOW_SPEED;
+		int _rand = rand() % 9 + 1;
+		_xv *= _rand;
+		_yv *= _rand;
 		xv.push_back(_xv);
 		yv.push_back(_yv);
 		window[i]->setPosition(sf::Vector2i(_x, _y));
