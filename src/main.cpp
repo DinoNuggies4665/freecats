@@ -55,6 +55,14 @@ int main() {
 
 	while (isRunning) {
 		for (int i = 0; i < window.size(); i++) {
+			// Poll events
+			while (window[i]->pollEvent(event)) {
+				if (event.type == sf::Event::KeyPressed) {
+					if (event.key.code == sf::Keyboard::Escape)
+						isRunning = false;
+				}
+			}
+
 			// Bounce windows
 			int _x = window[i]->getPosition().x;
 			int _y = window[i]->getPosition().y;
