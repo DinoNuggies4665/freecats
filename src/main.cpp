@@ -6,12 +6,16 @@
 #include <stdio.h>
 #include <cstdlib>
 #include <vector>
+#include <string.h>
 #include <sstream>
 
 // Window shit
 std::vector<sf::RenderWindow*> window;
 sf::Event event;
+sf::Sound amung;
 sf::SoundBuffer buffer;
+sf::SoundBuffer buffer2;
+sf::SoundBuffer buffer3;
 std::vector<sf::Sound> sound;
 std::vector<int> xv;
 std::vector<int> yv;
@@ -42,38 +46,46 @@ void spawnWindow() {
 	int _y = rand() % SCREEN_HEIGHT;
 	int _xv = rand() % 2 - 1; if (_xv == 0) { _xv++; }
 	int _yv = rand() % 2 - 1; if (_yv == 0) { _yv++; }
-	int _rand = rand() % 9 + 1;
+	int _rand = rand() % 15 + 5;
 	_xv *= _rand;
 	_yv *= _rand;
 	xv.push_back(_xv);
 	yv.push_back(_yv);
 	window[windows]->setPosition(sf::Vector2i(_x, _y));
 	sound.push_back(sf::Sound());
-	sound[windows].setBuffer(buffer);
-	float _pitch = rand() % 99 + 1;
-	_pitch /= 100;
-	sound[windows].setPitch(_pitch);
+	if (gifID[windows] == 43)
+		sound[windows].setBuffer(buffer3);
+	else {
+		sound[windows].setBuffer(buffer);
+		float _pitch = rand() % 199 + 1;
+		_pitch /= 100;
+		sound[windows].setPitch(_pitch);
+		sound[windows].setVolume(40);
+	}
 
 	windows++;
 }
 
 int main() {
-
+	
 	// Randomizing gifs
-	for (int i = 0; i < 42; i++)
+	for (int i = 0; i < 44; i++)
 		gifID.push_back(i);
 	srand(time(NULL));
 	std::random_shuffle(gifID.begin(), gifID.end());
 
 	// Setting the sound buffer
 	buffer.loadFromFile("data/yippi.ogg");
+	buffer2.loadFromFile("data/amogus.ogg");
+	buffer3.loadFromFile("data/bone.ogg");
+	amung.setBuffer(buffer2);
 
 	// The first window
 	spawnWindow();
 
 	int t = 0;
 	while (isRunning) {
-		if (t > 400) {
+		if (t > 100) {
 			spawnWindow();
 			t = 0;
 		}
@@ -88,8 +100,6 @@ int main() {
 						spawnWindow();
 				}
 				if (event.type == sf::Event::MouseButtonPressed)
-					spawnWindow();
-				if (event.type == sf::Event::MouseButtonReleased)
 					spawnWindow();
 			}
 
@@ -108,8 +118,10 @@ int main() {
 				sound[i].play();
 			}
 			window[i]->setPosition(sf::Vector2i(_x + xv[i], _y + yv[i]));
-			if (bounceX and bounceY)
-				printf("A Window hit the Edge!🥳🥳🥳🥳🎉🎉🎉🎉🎉🎉\n");
+			if (bounceX and bounceY) {
+				amung.play();
+				printf("edge hit!!!!\n");
+			}
 
 			// Draw funny cat
 			gif[i].update(sprite[i]);

@@ -11,3 +11,9 @@ windows:
 	ccache x86_64-pc-linux-gnu-g++ -c src/main.cpp -o build/main.o
 	ccache x86_64-pc-linux-gnu-g++ -c src/gif.cpp -o build/gif.o
 	ccache x86_64-pc-linux-gnu-g++ build/*.o -o FREECATS.EXE -lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio
+
+clean:
+	clear
+	rm -r -f build/
+	rm -f a.out
+	rm -f FREECATS.EXE
