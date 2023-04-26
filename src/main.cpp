@@ -112,7 +112,7 @@ int main() {
 				bounceX = true;
 				sound[i].play();
 			}
-			if (_y > SCREEN_HEIGHT - window[i]->getSize().y - 1 or _y < 31) {
+			if (_y > SCREEN_HEIGHT - window[i]->getSize().y - 1 or _y < 37) {
 				yv[i] *= -1;
 				bounceY = true;
 				sound[i].play();
@@ -120,7 +120,7 @@ int main() {
 			window[i]->setPosition(sf::Vector2i(_x + xv[i], _y + yv[i]));
 			if (bounceX and bounceY) {
 				amung.play();
-				printf("edge hit!!!!\n");
+				printf("edge hit!!!1!1!!1!1\n");
 			}
 
 			// Draw funny cat
